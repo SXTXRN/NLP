@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1 class="mb-4 text-center text-brown">What should we eat for dinner!!??</h1>
+
+<!-- ฟอร์มสำหรับเลือกเรตติ้งและช่วงราคา -->
+<form method="post" class="mb-4 p-4 border rounded-3 shadow-lg" style="background-color: #e2d1b3;">
+    <div class="mb-3">
+        <label for="rating" class="form-label text-dark">เรตติ้งขั้นต่ำ:</label>
+        <select name="rating" class="form-select">
+            <option value="4">4 ดาวขึ้นไป</option>
+            <option value="3">3 ดาวขึ้นไป</option>
+            <option value="2">2 ดาวขึ้นไป</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="price" class="form-label text-dark">ช่วงราคา:</label>
+        <select name="price" class="form-select">
+            <option value="all">ทุกช่วงราคา</option>
+            <option value="low">ราคาถูก (≤ 50 บาท)</option>
+            <option value="medium">ราคาปานกลาง (50 - 100 บาท)</option>
+            <option value="high">ราคาสูง (> 100 บาท)</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-brown w-100 mt-3 shadow-sm">ค้นหา</button>
+</form>
+
+<!-- แสดงเมนูอาหาร -->
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for menu in menus %}
+    <div class="col">
+        <div class="card shadow-lg rounded-3 overflow-hidden" style="transition: transform 0.3s ease;">
+            <div class="card-body" style="background-color: #f5f0e1;">
+                <h5 class="card-title text-dark">{{ menu.name }}</h5>
+                <p class="card-text text-dark">ราคา: {{ menu.price }} บาท</p>
+                <p class="text-warning">
+                    {% for _ in range(menu.rating) %}★{% endfor %}
+                </p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- เพิ่มเอฟเฟกต์เมื่อ hover บนการ์ด -->
+<style>
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-brown {
+        background-color: #7f4f24;
+        color: white;
+        border: none;
+    }
+
+    .btn-brown:hover {
+        background-color: #6a3e1f;
+    }
+
+    .text-brown {
+        color: #7f4f24;
+    }
+</style>
+
+{% endblock %}
